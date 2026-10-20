@@ -59,4 +59,8 @@ jobs:
           echo "Secret CLAVE_DE_PRUEBA: $CLAVE"
           echo "El secret tiene ${#CLAVE} caracteres....."
 
+      - name: build de una imagen docker
+        run: |
+          docker build -t prueba .
+
       # Add new steps below this line.
