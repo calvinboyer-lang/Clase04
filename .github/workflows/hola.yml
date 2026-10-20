@@ -33,6 +33,30 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Now it is
-        run: ls -la
+        run: |
+          ls -la
+          cat saludo.txt
+
+      - name: Run our own code
+        run: python3 hola.py
+
+      - name: Who runs this, and on what
+        run: |
+          echo "Repo:     $GITHUB_REPOSITORY"
+          echo "Lo lanzó: $GITHUB_ACTOR"
+          echo "Evento:   $GITHUB_EVENT_NAME"
+          echo "Commit:   ${GITHUB_SHA::7}"
+          echo "Run:      $GITHUB_RUN_NUMBER"
+          echo "Runner:   $RUNNER_OS $RUNNER_ARCH"
+
+      # A variable is printed as is; a secret, never: GitHub masks it with ***.
+      - name: Repository variable and secret
+        env:
+          SALUDO: ${{ vars.SALUDO }}
+          CLAVE: ${{ secrets.CLAVE_DE_PRUEBA }}
+        run: |
+          echo "Variable SALUDO: $SALUDO"
+          echo "Secret CLAVE_DE_PRUEBA: $CLAVE"
+          echo "El secret tiene ${#CLAVE} caracteres"
 
       # Add new steps below this line.
